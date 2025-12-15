@@ -1,0 +1,13 @@
+import numpy as np
+
+# Assignment 1
+arr = np.random.rand(3, 6)
+arr = arr + np.array([0, 0, 2, 4, 5, 3])
+arr = arr.reshape(9, 2).T
+mean_val = np.mean(arr)
+print(np.where(arr > mean_val))
+
+# Assignment 2
+arr = np.random.poisson(5, 20)
+arr = (arr - np.mean(arr)) / np.std(arr)
+print(arr)
