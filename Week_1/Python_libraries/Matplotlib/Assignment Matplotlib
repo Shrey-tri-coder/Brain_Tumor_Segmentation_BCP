@@ -1,0 +1,46 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Assignment 1
+size = 1000
+normal_data = np.random.normal(0, 1, size)
+beta_data = np.random.beta(2, 5, size)
+
+plt.figure(figsize=(12, 5))
+
+plt.subplot(1, 2, 1)
+plt.hist(beta_data, bins=20, edgecolor="black")
+plt.title("Beta distribution (2, 5)")
+plt.xlabel("values")
+plt.ylabel("frequency")
+
+plt.subplot(1, 2, 2)
+plt.hist(normal_data, bins=20, edgecolor="black")
+plt.title("Normal distribution")
+plt.xlabel("values")
+plt.ylabel("frequency")
+
+plt.tight_layout()
+plt.show()
+
+
+# Assignment 2
+data = np.random.normal(0, 1, 1000)
+
+mean_val = data.mean()
+p25 = np.percentile(data, 25)
+p75 = np.percentile(data, 75)
+
+plt.figure(figsize=(8, 5))
+plt.hist(data, bins=20, color="lightpink", edgecolor="black")
+
+plt.axvline(mean_val, linestyle="--", linewidth=2, label="mean")
+plt.axvline(p25, linestyle=":", linewidth=2, label="25th percentile")
+plt.axvline(p75, linestyle=":", linewidth=2, label="75th percentile")
+
+plt.title("Histogram with mean and percentiles")
+plt.xlabel("values")
+plt.ylabel("count")
+plt.legend()
+
+plt.show()
