@@ -1,0 +1,70 @@
+# Assignment 1
+def print_spiral_order(matrix):
+    result = []
+    if matrix is None or len(matrix) == 0:
+        return result
+
+    top, bottom = 0, len(matrix) - 1
+    left, right = 0, len(matrix[0]) - 1
+
+    while top <= bottom and left <= right:
+        for j in range(left, right + 1):
+            result.append(matrix[top][j])
+        top += 1
+        for i in range(top, bottom + 1):
+            result.append(matrix[i][right])
+        right -= 1
+        if top <= bottom:
+            for j in range(right, left - 1, -1):
+                result.append(matrix[bottom][j])
+            bottom -= 1
+        if left <= right:
+            for i in range(bottom, top - 1, -1):
+                result.append(matrix[i][left])
+            left += 1
+
+    return result
+
+
+# Assignment 2
+def count_word_frequency(sentence):
+    frequency = {}
+    words = sentence.split()
+    for word in words:
+        # Remove punctuation
+        clean_word = ''.join(ch for ch in word if ch.isalnum())
+        if clean_word:
+            frequency[clean_word] = frequency.get(clean_word, 0) + 1
+    return frequency
+
+
+# Assignment 3
+def is_palindrome_iterative(s):
+    left, right = 0, len(s) - 1
+    while left < right:
+        if s[left] != s[right]:
+            return False
+        left += 1
+        right -= 1
+    return True
+
+def is_palindrome_recursive(s):
+    if len(s) <= 1:
+        return True
+    if s[0] != s[-1]:
+        return False
+    return is_palindrome_recursive(s[1:-1])
+
+
+# Assignment 4
+def is_prime(n):
+    if n <= 1:
+        return False
+    if n == 2:
+        return True
+    if n % 2 == 0:
+        return False
+    for i in range(3, int(n ** 0.5) + 1, 2):
+        if n % i == 0:
+            return False
+    return True
