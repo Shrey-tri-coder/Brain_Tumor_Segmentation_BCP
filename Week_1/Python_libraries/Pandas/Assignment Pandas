@@ -1,0 +1,23 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("videogamesales.csv")
+
+df["global_sales"] = df["NA_Sales"] + df["EU_Sales"] + df["JP_Sales"] + df["Other_Sales"]
+df = df.sort_values(by="global_sales", ascending=False)
+print(df)
+
+df.groupby("Genre")["global_sales"].sum().plot(kind="bar", title="Global Sales by Genre")
+plt.show()
+
+gta = df[df["Name"].str.contains("Grand Theft Auto", case=False, na=False)]
+gta_out = gta[["Name", "Platform", "Year"]].copy()
+gta_out["EU_JP_Sales"] = gta["EU_Sales"] + gta["JP_Sales"]
+print(gta_out)
+
+plt.pie(
+    [gta["NA_Sales"].sum(), gta["EU_Sales"].sum(), gta["JP_Sales"].sum(), gta["Other_Sales"].sum()],
+    labels=["North America", "Europe", "Japan", "Other"],
+    autopct="%1.1f%%"
+)
+plt.show()
