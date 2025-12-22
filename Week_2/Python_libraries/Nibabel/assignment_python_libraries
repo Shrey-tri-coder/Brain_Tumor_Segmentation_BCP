@@ -1,0 +1,28 @@
+import nibabel as nib
+import numpy as np
+import matplotlib.pyplot as plt
+from google.colab import files
+
+uploaded = files.upload()
+file_path = list(uploaded.keys())[0]
+
+mri = nib.load(file_path).get_fdata()
+z = mri.shape[2]
+
+slice_ids = [z//6, z//3, z//2, 2*z//3, 5*z//6]
+
+def plot_slices(vol, ids):
+    plt.figure(figsize=(12,3))
+    for i in range(len(ids)):
+        plt.subplot(1, len(ids), i + 1)
+        plt.imshow(vol[:, :, ids[i]], cmap='gray')
+        plt.axis('off')
+    plt.show()
+
+def normalize(vol):
+    return (vol - vol.min()) / (vol.max() - vol.min())
+
+plot_slices(mri, slice_ids)
+
+mri_norm = normalize(mri)
+plot_slices(mri_norm, slice_ids)
